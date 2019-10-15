@@ -3,10 +3,10 @@
 
 Primary_Router::Primary_Router(string inputfile):Base()
 {
-	base.readinputfile(inputfile);
+	readinputfile(inputfile);
 	socket_primary_udp = 0;
 	length_udp_socket = 0;
-	primaryrouterfilename = "stage"+to_string(base.stage)+".r0.out";
+	primaryrouterfilename = "stage"+to_string(stage)+".r0.out";
 }
 
 void Primary_Router::logfilewrite(string info)
@@ -28,9 +28,9 @@ int Primary_Router::udpsocketcreation()
     primaryaddr.sin_port = htons(0);
 
     int bind_value = bind(socket_primary_udp, (struct sockaddr *) &primaryaddr, sizeof(struct sockaddr_in));
-	cancellationpoint(bind_value,"Error in binding the primary socket");
+    cancellationpoint(bind_value,"Error in binding the primary socket");
 
-    length_udp_socket  = sizeof(struct sockaddr*);
+    	length_udp_socket  = sizeof(struct sockaddr*);
 	getsockname(socket_primary_udp,(struct sockaddr*)&primaryaddr,&length_udp_socket);
 	port_number = ntohs(primaryaddr.sin_port);
 	primaryaddr.sin_port = htons(port_number);
@@ -47,14 +47,13 @@ void Primary_Router::tunnelreader()
     /* Connect to the tunnel interface (make sure you create the tunnel interface first) */
     strcpy(tun_name, "tun1");
     int tun_fd = tun_alloc(tun_name, IFF_TUN | IFF_NO_PI); 
-	cancellationpoint(tun_fd,"Error in creating tunnel");
+    cancellationpoint(tun_fd,"Error in creating tunnel");
     
     
     while(1)
     {
-    	fd_set fs;
-		
-		tv.tv_sec = 15;
+    	fd_set fs;	
+	tv.tv_sec = 15;
     	tv.tv_usec = 0;
     
 		FD_ZERO(&fs);
@@ -174,51 +173,12 @@ void Primary_Router::tunnelreader()
 	}
 }
 
-
-
-
-void Primary_Router::cancellationpoint(int value,string errormessage)
-{
-	if (value < 0)
-	{
-		cout<<errormessage<<endl;
-		exit(0);
-	}
-}
-unsigned int Primary_Router::checksum(char *addr, short count) /*Checksum code taken from class-provided code*/
-{ 
-
-       /* Compute Internet Checksum for "count" bytes
-        *         beginning at location "addr".
-        */
-       register long sum = 0;
-
-        while( count > 1 )  
-        {
-
-           /*  This is the inner loop */
-               sum += *(unsigned short *) addr;
-	       addr += 2;
-               count -= 2;
-        }
-
-           /*  Add left-over byte, if any */
-       if( count > 0 )
-               sum += * (unsigned char *) addr;
-
-           /*  Fold 32-bit sum to 16 bits */
-       while (sum>>16)
-           sum = (sum & 0xffff) + (sum >> 16);
-
-       return (unsigned short) ~sum;
-
-}
 vector<string>Primary_Router::cleanupstring(string input)
 {
 	vector<string>secondaryinfo;
 	string delimiter = ":";
 	size_t position = 0;
-    string token = "";
+    	string token = "";
 	while((position = input.find(delimiter))!= string::npos)
 	  {
 	    token = input.substr(0,position);
@@ -229,5 +189,7 @@ vector<string>Primary_Router::cleanupstring(string input)
 	return secondaryinfo;
 
 }
+
+
 
 
