@@ -35,3 +35,38 @@ void Base::readinputfile(string s)
     
     }
 }
+void Base::cancellationpoint(int value,string message)
+{
+	if (value < 0)
+	{
+		cout<<message<<endl;
+		exit(0);
+	}
+
+}
+unsigned int Base::checksum(char *addr, short count) /**Checksum code taken from class-provided code*/
+{
+	/* Compute Internet Checksum for "count" bytes
+        *         beginning at location "addr".
+        */
+       register long sum = 0;
+
+        while( count > 1 )  
+        {
+
+           /*  This is the inner loop */
+               sum += *(unsigned short *) addr;
+	       addr += 2;
+               count -= 2;
+        }
+
+           /*  Add left-over byte, if any */
+       if( count > 0 )
+               sum += * (unsigned char *) addr;
+
+           /*  Fold 32-bit sum to 16 bits */
+       while (sum>>16)
+           sum = (sum & 0xffff) + (sum >> 16);
+
+       return (unsigned short) ~sum;
+}
