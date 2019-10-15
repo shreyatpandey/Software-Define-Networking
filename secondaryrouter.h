@@ -34,12 +34,8 @@ class Secondary:public Base
         int routerindex;
     public:
         Secondary(int index,string inputfile,int portnumber);
-        Base base;
         string secondaryrouterfilename = "";
-        void cancellationpoint(int value,string errormessage);
-		void logfilewrite(string inputfile);
         void secondaryudpsetup();
-        unsigned int checksum(char *addr, short count);
         ofstream outfile_iterator;
 
 };
