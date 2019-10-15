@@ -2,10 +2,10 @@
 
 Secondary::Secondary(int index,string inputfile,int portnumber): Base()  /* this is very important */
 {
-	base.readinputfile(inputfile);
+	readinputfile(inputfile);
 	this->primaryportnumber = portnumber;
 	routerindex = index;
-	secondaryrouterfilename = "stage"+to_string(base.stage)+".r"+to_string(routerindex)+".out";
+	secondaryrouterfilename = "stage"+to_string(stage)+".r"+to_string(routerindex)+".out";
 }
 void Secondary::logfilewrite(string info)
 {
@@ -23,11 +23,11 @@ void Secondary::secondaryudpsetup()
 	
 	struct sockaddr_in secondary_socket;
 	memset(&secondary_socket,0,sizeof(struct sockaddr_in));
-    secondary_socket.sin_family = AF_INET;
-    secondary_socket.sin_port = htons(0);
+    	secondary_socket.sin_family = AF_INET;
+    	secondary_socket.sin_port = htons(0);
     
 
-    int bindsecondary = bind(socketsecondary, (struct sockaddr *) &secondary_socket, sizeof(struct sockaddr_in));
+    	int bindsecondary = bind(socketsecondary, (struct sockaddr *) &secondary_socket, sizeof(struct sockaddr_in));
 	cancellationpoint(bindsecondary,"Error in binding secondary socket");
    
 	lengthudpsocketsecondary  = sizeof(struct sockaddr);
@@ -120,42 +120,6 @@ void Secondary::secondaryudpsetup()
 
 }
 }
-void Secondary::cancellationpoint(int value,string errormessage)
-{
-	if (value < 0)
-	{
-		cout<<errormessage<<endl;
-		exit(0);
-	}
-}
 
 
-unsigned int Secondary::checksum(char *addr, short count) /*Checksum code taken from class-provided code*/
-{ 
-
-       /* Compute Internet Checksum for "count" bytes
-        *         beginning at location "addr".
-        */
-       register long sum = 0;
-
-        while( count > 1 )  
-        {
-
-           /*  This is the inner loop */
-               sum += *(unsigned short *) addr;
-	       addr += 2;
-               count -= 2;
-        }
-
-           /*  Add left-over byte, if any */
-       if( count > 0 )
-               sum += * (unsigned char *) addr;
-
-           /*  Fold 32-bit sum to 16 bits */
-       while (sum>>16)
-           sum = (sum & 0xffff) + (sum >> 16);
-
-       return (unsigned short) ~sum;
-
-}
 
