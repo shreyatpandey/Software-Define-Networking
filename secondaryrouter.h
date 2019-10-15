@@ -36,6 +36,7 @@ class Secondary:public Base
         Secondary(int index,string inputfile,int portnumber);
         string secondaryrouterfilename = "";
         void secondaryudpsetup();
+        void logfilewrite(string info);
         ofstream outfile_iterator;
 
 };
