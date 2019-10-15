@@ -38,19 +38,16 @@ class Primary_Router:public Base
 		struct iphdr* ip_pac = (struct iphdr*)buffertunnel;
 		struct icmphdr* icmp_pac = (struct icmphdr *)(ip_pac + 1);
 		map<string,int>secondaryrouterinfo;
-		map<string,int>::iterator it;
+	
 
 	public:
 		Primary_Router(string inputfile);
-		Base base;
 		string primaryrouterfilename = "";
 		ofstream outfile_iterator;
-        int udpsocketcreation();
-        void tunnelreader();
-		void cancellationpoint(int value,string errormessage);
+        	int udpsocketcreation();
+        	void tunnelreader();
 		void logfilewrite(string inputfile);
 		vector<string> cleanupstring(string input);
-		unsigned int checksum(char *addr, short count);
         
 };
 
