@@ -16,6 +16,5 @@ class Base
 	void readinputfile(std::string input);
 	void cancellationpoint(int value, std::string errormessage);
 	unsigned int checksum(char *addr, short count);
-
 };
 #endif //__base_header_included__
