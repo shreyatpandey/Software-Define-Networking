@@ -8,7 +8,6 @@
 #include<sys/types.h>
 #include<sys/select.h>
 #include<netdb.h>
-#include<stdlib.h>
 #include<string.h>
 #include<netinet/in.h>
 #include<arpa/inet.h>
@@ -17,17 +16,15 @@
 #include<fcntl.h>
 #include<unistd.h>
 #include<map>
+#include<vector>
 #include "base.h"
 
 
 #define BUF_MAX_SIZE 2048
-using namespace std;
-
-
 
 class Primary_Router:public Base
 {
-    private:
+	private:
 		int socket_primary_udp = 0;
 		struct sockaddr_in primaryaddr;
 		socklen_t length_udp_socket;
@@ -37,18 +34,18 @@ class Primary_Router:public Base
 		struct timeval tv;
 		struct iphdr* ip_pac = (struct iphdr*)buffertunnel;
 		struct icmphdr* icmp_pac = (struct icmphdr *)(ip_pac + 1);
-		map<string,int>secondaryrouterinfo;
-	
+		std::map<std::string, int>secondaryrouterinfo;
+
 
 	public:
-		Primary_Router(string inputfile);
-		string primaryrouterfilename = "";
-		ofstream outfile_iterator;
-        	int udpsocketcreation();
-        	void tunnelreader();
-		void logfilewrite(string inputfile);
-		vector<string> cleanupstring(string input);
-        
+		Primary_Router(std::string inputfile);
+		std::string primaryrouterfilename = "";
+		std::ofstream outfile_iterator;
+		int udpsocketcreation();
+		void tunnelreader();
+		void logfilewrite(std::string inputfile);
+		std::vector<std::string> cleanupstring(std::string input);
+
 };
 
 #endif

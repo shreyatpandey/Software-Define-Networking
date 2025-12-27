@@ -1,18 +1,20 @@
 CC=g++
-CFLAGS=-c -g -Wall
-SOURCES=main.cpp base.cpp primaryrouter.cpp secondaryrouter.cpp 
+CFLAGS=-c -g -Wall -Iinc
+SRCDIR=src
+SOURCES=$(wildcard $(SRCDIR)/*.cpp)
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=proja
 
+all: $(EXECUTABLE)
 
-$(EXECUTABLE):	$(OBJECTS)
-			$(CC) -Wall $(OBJECTS) -o $@
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) -Wall $(OBJECTS) -o $@
 
-.cpp.o:
-		$(CC) $(CFLAGS) $< -o $@
+$(SRCDIR)/%.o: $(SRCDIR)/%.cpp
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f *.o
+	rm -f $(OBJECTS) $(EXECUTABLE)
 
 clear:
 	rm -f *.out
