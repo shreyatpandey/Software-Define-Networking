@@ -1,6 +1,6 @@
-#include<linux/if_tun.h>
-#include<net/if.h>
-#include<sys/ioctl.h>
+#include <linux/if_tun.h>
+#include <net/if.h>
+#include <sys/ioctl.h>
 
 /*
  Tunnel Allocation code taken from class-provided code
