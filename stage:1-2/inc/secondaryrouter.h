@@ -3,9 +3,9 @@
 
 #include<string>
 #include<fstream>
-#include<stdio.h>
+#include<cstdio>
 #include<stdlib.h>
-#include<stdint.h>
+#include<cstdint>
 #include<sys/socket.h>
 #include<sys/types.h>
 #include<sys/select.h>
