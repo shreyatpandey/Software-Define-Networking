@@ -2,8 +2,10 @@
 #include<net/if.h>
 #include<sys/ioctl.h>
 
-
-int tun_alloc(char *dev, int flags) /*Tunnel Allocation code taken from class-provided code */
+/*
+ Tunnel Allocation code taken from class-provided code
+ */
+int tun_alloc(char *dev, int flags)
 {
 	struct ifreq ifr;
 	int fd, err;
@@ -11,8 +13,8 @@ int tun_alloc(char *dev, int flags) /*Tunnel Allocation code taken from class-pr
 
 	if( (fd = open(clonedev , O_RDWR)) < 0 )
 	{
-	perror("Opening /dev/net/tun");
-	return fd;
+		perror("Opening /dev/net/tun");
+		return fd;
 	}
 
 	memset(&ifr, 0, sizeof(ifr));
@@ -21,14 +23,14 @@ int tun_alloc(char *dev, int flags) /*Tunnel Allocation code taken from class-pr
 
 	if (*dev)
 	{
-	strncpy(ifr.ifr_name, dev, IFNAMSIZ);
+		strncpy(ifr.ifr_name, dev, IFNAMSIZ);
 	}
 
 	if( (err = ioctl(fd, TUNSETIFF, (void *)&ifr)) < 0 )
 	{
-	perror("ioctl(TUNSETIFF)");
-	close(fd);
-	return err;
+		perror("ioctl(TUNSETIFF)");
+		close(fd);
+		return err;
 	}
 
 	strcpy(dev, ifr.ifr_name);
