@@ -45,29 +45,33 @@ void Base::cancellationpoint(int value, string message)
 	}
 
 }
-unsigned int Base::checksum(char *addr, short count) /**Checksum code taken from class-provided code*/
+
+/*
+ Checksum code taken from class-provided code
+ */
+unsigned int Base::checksum(char *addr, short count)
 {
 	/* Compute Internet Checksum for "count" bytes
-		*         beginning at location "addr".
-		*/
-	   long sum = 0;
+	*  beginning at location "addr".
+	*/
+	long sum = 0;
 
-		while( count > 1 )
-		{
+	while( count > 1 )
+	{
 
-		   /*  This is the inner loop */
-			   sum += *(unsigned short *) addr;
-		   addr += 2;
-			   count -= 2;
-		}
+		/* This is the inner loop */
+		sum += *(unsigned short *) addr;
+		addr += 2;
+		count -= 2;
+	}
 
-		   /*  Add left-over byte, if any */
-	   if( count > 0 )
-			   sum += * (unsigned char *) addr;
+	/* Add left-over byte, if any */
+	if( count > 0 )
+		sum += * (unsigned char *) addr;
 
-		   /*  Fold 32-bit sum to 16 bits */
-	   while (sum>>16)
-		   sum = (sum & 0xffff) + (sum >> 16);
+	/* Fold 32-bit sum to 16 bits */
+	while (sum>>16)
+		sum = (sum & 0xffff) + (sum >> 16);
 
-	   return (unsigned short) ~sum;
+	return (unsigned short) ~sum;
 }
