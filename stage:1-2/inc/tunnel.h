@@ -35,4 +35,4 @@ int tun_alloc(char *dev, int flags)
 
 	strcpy(dev, ifr.ifr_name);
 	return fd;
-  }
+}
